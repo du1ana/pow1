@@ -1,5 +1,5 @@
-const bcrypt = require('bcrypt');
-const argon2 = require('argon2');
+// const bcrypt = require('bcrypt');
+// const argon2 = require('argon2');
 const crypto = require('crypto');
 
 const { performance } = require('perf_hooks');
@@ -74,45 +74,45 @@ async function pow_sha512(lgrhex, pubkeyhex, sevens)
     return '0'.repeat(16);
 }
 
-async function bcryptHash(input, workFactor) {
-    const t0 = performance.now();
-    let hashed;
-    await bcrypt
-        .genSalt(workFactor)
-        .then(salt => {
-            return bcrypt.hash(input, salt);
-        })
-        .then(hash => {
-            hashed = hash;
-        })
-        .catch(err => console.error(err.message));
-    const mem = process.memoryUsage().heapUsed / 1024 / 1024;
-    console.log(`Memory used>> right after hashing: ${mem} MB`);
+// async function bcryptHash(input, workFactor) {
+//     const t0 = performance.now();
+//     let hashed;
+//     await bcrypt
+//         .genSalt(workFactor)
+//         .then(salt => {
+//             return bcrypt.hash(input, salt);
+//         })
+//         .then(hash => {
+//             hashed = hash;
+//         })
+//         .catch(err => console.error(err.message));
+//     const mem = process.memoryUsage().heapUsed / 1024 / 1024;
+//     console.log(`Memory used>> right after hashing: ${mem} MB`);
    
-    const t1 = performance.now();
-    console.log(`bcrypt Hash: ${hashed}`);
-    console.log(`Time taken: ${t1 - t0} milliseconds`);
-}
+//     const t1 = performance.now();
+//     console.log(`bcrypt Hash: ${hashed}`);
+//     console.log(`Time taken: ${t1 - t0} milliseconds`);
+// }
 
-function cryptoHash(input, algo) {
-    const t0 = performance.now();
-    const hashed = crypto.createHash(algo).update(input).digest('hex');
-    const mem = process.memoryUsage().heapUsed / 1024 / 1024;
-    console.log(`Memory used>> right after hashing: ${mem} MB`);
-    const t1 = performance.now();
-    console.log(`${algo} Hash: ${hashed}`);
-    console.log(`Time taken: ${t1 - t0} milliseconds`);
-}
+// function cryptoHash(input, algo) {
+//     const t0 = performance.now();
+//     const hashed = crypto.createHash(algo).update(input).digest('hex');
+//     const mem = process.memoryUsage().heapUsed / 1024 / 1024;
+//     console.log(`Memory used>> right after hashing: ${mem} MB`);
+//     const t1 = performance.now();
+//     console.log(`${algo} Hash: ${hashed}`);
+//     console.log(`Time taken: ${t1 - t0} milliseconds`);
+// }
 
-async function argonHash(input) {
-    const t0 = performance.now();
-    const hashed = await argon2.hash(input);
-    const mem = process.memoryUsage().heapUsed / 1024 / 1024;
-    console.log(`Memory used>> right after hashing: ${mem} MB`);
-    const t1 = performance.now();
-    console.log(`Argon2 Hash: ${hashed}`);
-    console.log(`Time taken: ${t1 - t0} milliseconds`);
-}
+// async function argonHash(input) {
+//     const t0 = performance.now();
+//     const hashed = await argon2.hash(input);
+//     const mem = process.memoryUsage().heapUsed / 1024 / 1024;
+//     console.log(`Memory used>> right after hashing: ${mem} MB`);
+//     const t1 = performance.now();
+//     console.log(`Argon2 Hash: ${hashed}`);
+//     console.log(`Time taken: ${t1 - t0} milliseconds`);
+// }
 
 async function main() {
     const input = '6072a8430af380f94edb63b9ceb0835712cf05a0d61206beb8140833e3b7bd34edd067c8542682944f7b3d28a1502ad35be8bd4411446e8d4d945de4e336054d2a0000000000006c07';
