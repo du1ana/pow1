@@ -36,7 +36,10 @@ async function pow_bcrypt(lgrhex, pubkeyhex, sevens, workFactor) {
                 return bcrypt.hash(buf, salt);
             })
             .then(hash => {
-                hashed = hash.substring(7);
+                hash = hash.substring(7);
+                hashed = Buffer.from(hash).toString('hex');
+
+                
             })
             .catch(err => console.error(err.message));
 
@@ -72,7 +75,7 @@ async function main() {
         stopMemoryUsageMeasurement();
         measureMemoryUsage(1000);
 
-        await pow_bcrypt(lgrhex, pubkeyhex, 2, parseInt(workFactor));
+        await pow_bcrypt(lgrhex, pubkeyhex, 5, parseInt(workFactor));
 
         // Stop measuring memory usage after all operations are done
         stopMemoryUsageMeasurement();
