@@ -31,6 +31,8 @@ async function pow_sha512(lgrhex, pubkeyhex, sevens)
 		let buf = Buffer.from(lgrhex + pubkeyhex + uptohex, "hex");
 
 		let sha = crypto.createHash('sha512').update(buf).digest('hex');
+        const mem = process.memoryUsage().heapUsed / 1024 / 1024;
+        console.log(`Memory used: ${mem} MB`);
 
 		let i = 0;
 		for (; i < sevens && i < sha.length; ++i)
